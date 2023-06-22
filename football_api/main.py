@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for,flash, sess
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, LoginManager, login_user, logout_user, current_user, login_required
+from teaminfo import getTeamInfo
 
 
 app = Flask(__name__)
@@ -204,7 +205,9 @@ def getleague():
 
 @app.route('/team')
 def team():
-    return render_template('team.html')
+    teamID = request.args.get('teamID')
+    teamresponse=getTeamInfo(teamID)
+    return render_template('team.html', teamresponse=teamresponse)
 
 
 @app.route('/league')

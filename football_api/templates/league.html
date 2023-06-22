@@ -38,7 +38,20 @@
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
     <script type="module" src="https://widgets.api-sports.io/2.0.3/widgets.js"></script>
-    <script src="../script/league.js"></script>
+    <script>
+        setTimeout(() => {
+            const teams = document.getElementsByClassName("wg_nowrap")
+            console.log(teams)
+            for (let team of teams) {
+                team.addEventListener("click", function () {
+                    const number = team.querySelector('img').getAttribute('src').split('/').pop().split('.')[0];
+                    window.location.href = `/team?teamID=${number}`
+                })
+            }
+        }, 2000);
+
+
+    </script>
     <!--     <script>-->
     <!--        const params = new URLSearchParams(window.location.search);-->
     <!--        const selectedLeague = params.get('league');-->

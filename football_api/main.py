@@ -144,12 +144,14 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form['username'] or ' '
+        password = request.form['password'] or ' '
 
         user = User.query.filter_by(username=username).first()
-        if not user or not check_password_hash(user.password, password):
-            flash('Invalid username or password.')
+        if username==' ' or password==' ':
+            return 'Empty username or password.'
+        elif not user or not check_password_hash(user.password, password):
+            return 'Invalid username or password.'
         else:
             session['username'] = username
         login_user(user, remember=True)
@@ -158,22 +160,24 @@ def login():
         if not current_user.is_authenticated:
             return render_template('login.html')
         else:
-            return render_template('getleague.html')
+            return redirect(url_for('getleague'))
 
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         # Retrieve form data
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form['username'] or ' '
+        password = request.form['password'] or ' '
+        if username==' ' or password==' ':
+            return 'Empty username or password.'
         existing_user = User.query.filter_by(username=username).first()
         # Perform validation (you can customize this based on your requirements)
         if existing_user:
-            flash('Username already exists')
+            return ('Username already exists')
             return redirect(url_for('signup'))
         elif username == '' or password == '':
-            flash("Fill in all blanks!")
+            return ("Fill in all blanks!")
             return redirect(url_for('signup'))
 
         # Check if the username already exists in the database
@@ -194,7 +198,7 @@ def signup():
 @app.route('/getleague',methods=["GET"])
 @login_required
 def getleague():
-    
+    flash(f"Hello {session['username']} This is a flash message.")
     return render_template('getleague.html')
 
 
@@ -212,9 +216,9 @@ def league():
 
 @app.route('/logout')
 def logout():
-    # Log out the user
     logout_user()
-    return 'Logged out successfully.'
+    session.pop('username', None)
+    return redirect(url_for('login'))
 
 
 

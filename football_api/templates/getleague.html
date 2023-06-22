@@ -12,6 +12,16 @@
 
 <body>
 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flash-messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
     <div class="heading">
         <div class="bg"></div>
         <h2>choose your league</h2>
@@ -47,6 +57,11 @@
             </a>
         </form>
     </div>
+
+
+    {% if current_user.is_authenticated %}
+        <a class="btn btn-link mt-3" href="{{ url_for('logout') }}">Logout</a>
+    {% endif %}
 
 
 

@@ -194,6 +194,7 @@ def signup():
 @app.route('/getleague',methods=["GET"])
 @login_required
 def getleague():
+    
     return render_template('getleague.html')
 
 
@@ -204,7 +205,10 @@ def team():
 
 @app.route('/league')
 def league():
-    return render_template('league.html')
+    league_id = request.args.get('leagueid')
+    season = request.args.get('season')
+    return render_template('league.html', league_id=league_id, season=season)
+
 
 @app.route('/logout')
 def logout():

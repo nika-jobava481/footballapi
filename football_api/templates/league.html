@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/league.css">
+</head>
+<body>
+
+    <div class="league">
+        <div class="logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkrNzDC1NLbksyh0JsyEim5m5AruZmzR3o-nQG5qfjaQ&s" alt=""></div>
+        <p class="name">league</p>
+        <p class="season">YYYY</p>
+    </div>
+
+
+
+    <div id="wg-api-football-standings"
+    data-host="api-football-v1.p.rapidapi.com"
+    data-key="018490ae74msh76daff5b99447f7p13d47ejsnc069ebcec164"
+    data-team=""
+    data-league="39"
+    data-season="2022"
+    data-theme="dark"
+    data-show-errors="false"
+    data-show-logos="true"
+    class="wg_loader"></div>
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script
+    type="module"
+    src="https://widgets.api-sports.io/2.0.3/widgets.js"></script>
+    <script src="../script/league.js"></script>
+<!--     <script>-->
+<!--        const params = new URLSearchParams(window.location.search);-->
+<!--        const selectedLeague = params.get('league');-->
+<!--        const selectedSeason = params.get('season');-->
+
+<!--        // Update the data attributes of the target div with the selected values-->
+<!--        const targetDiv = document.getElementById('wg-api-football-standings');-->
+<!--        targetDiv.dataset.league = selectedLeague;-->
+<!--        targetDiv.dataset.season = selectedSeason;-->
+<!--    </script>-->
+</script>
+</body>
+</html>

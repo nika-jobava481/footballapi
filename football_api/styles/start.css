@@ -1,0 +1,17 @@
+body.auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+body.auth > div.container {
+  width: 500px;
+}
+body.auth > div.container > form input {
+  margin: 10px 0;
+}
+body.auth > div.container > form > .df {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}/*# sourceMappingURL=start.css.map */

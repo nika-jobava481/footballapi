@@ -25,121 +25,6 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
 
-
-"""
-აქ ხელითაა მიცემული სეზონი და ლიგა
-რეალურად გვინდა ის რასაც მომხმარებელი მონიშნავს
-მერე მანდედან ვიღებთ teamid-ს რომელიც გვჭირდება
-lineup-ისა და მწვრთნელის გამოსატანად
-მაგრამ აქ ერთი პრობლემაა ამას სჭირდება ორი პარამეტრი
-teamid რომელიც წამოღებულია ქვევით ეიპიაიში და fixtures
-ეს ვერსად ვერ ვნახე
-"""
-import requests
-import json
-
-# url = "https://api-football-v1.p.rapidapi.com/v3/standings"
-
-# querystring = {"season": "2021", "league": "78"}
-
-# headers = {
-#     "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-#     "X-RapidAPI-Key": "68cd65fa40mshd0152fc63f9e5fep151d51jsn9ca3f6ffeb04"}
-
-# response = requests.request("GET", url, headers=headers, params=querystring)
-
-# result_json = response.text
-# res = json.loads(result_json)
-# res = response.json()['response'][0]['league']['standings'][0]
-# res_structured = json.dumps(res, indent=4)
-
-
-# team_id = []
-# for i in range(len(res)):
-#     team_info = res[i]
-#     team_id.append(team_info['team']['id'])
-
-
-
-"""
-ესაა ლაინაფი და აქაა პირველი პარამეტრის პრობლემა
-"""
-# url2 = "https://api-football-v1.p.rapidapi.com/v3/fixtures/lineups"
-# querystring2 = {"fixture": "215662", "team": "463"}
-
-# headers2 = {
-#     "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-#     "X-RapidAPI-Key": "68cd65fa40mshd0152fc63f9e5fep151d51jsn9ca3f6ffeb04"}
-
-# response2 = requests.request("GET", url, headers=headers2, params=querystring2)
-
-
-# result_json2 = response.text
-# res2 = json.loads(result_json)
-# res2 = response.json()['response']
-# res_structured2 = json.dumps(res, indent=4)
-# print(res_structured)
-
-
-# team_name = res[0]['team']['name']
-# team_logo = res[0]['team']['logo']
-# coach = res[0]['coach']['name']
-# coach_photo = res[0]['coach']['photo']
-# start_11 = res[0]['startXI']
-# print(team_name, team_logo,coach,coach_photo)
-
-
-# for i in range(len(start_11)):
-#     player_id = start_11[0]['player']['id']
-#     playar_name = start_11[0]['player']['name']
-#     playar_number = start_11[0]['player']['number']
-#     playar_position = start_11[0]['player']['pos']
-#     print(player_id, playar_name, playar_number, playar_position)
-
-"""
-ახლა დავწერ მოთამაშეების ინფორმაციას რომლისთვისაც 
-პარამეტრები არის გუნდის აიდი და სეზონი
-მოაქვს 20 მოთამაშე მარა ჩვენ გვინდა კონკრეტული 11
-მოთამაშეების კოდი რომელსაც წინა ეიპიაიდან წამოვიღებთ
-უბრალოდ ჩემი შესაძლებლობები ვეღარ წვდება დანარჩენს
-თორემ ვიზამდი აუცილებლად
-"""
-
-# url1 = "https://api-football-v1.p.rapidapi.com/v3/players"
-
-# querystring1 = {"team":"33", "season":"2020"}
-
-# headers1 = {
-#     "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-#     "X-RapidAPI-Key": "68cd65fa40mshd0152fc63f9e5fep151d51jsn9ca3f6ffeb04"}
-
-# response1 = requests.request("GET", url, headers=headers1, params=querystring1)
-
-
-# result_json1 = response.text
-# res1 = json.loads(result_json)
-# res1 = response.json()['response']
-# res_structured1 = json.dumps(res, indent=4)
-# print(res_structured)
-
-# for i in range(len(res)):
-#     player_id = res[i]['player']['id']
-#     name = res[i]['player']['name']
-#     age = res[i]['player']['age']
-#     birthday = res[i]['player']['birth']['date']
-#     country = res[i]['player']['birth']['country']
-#     heigth = res[i]['player']['height']
-#     weight = res[i]['player']['weight']
-#     photo = res[i]['player']['photo']
-#     print(f"player id: {player_id}, name: {name}, age: {age}, birthday: {birthday}, ", f"country: {country}, heigth: {heigth}, weight: {weight},", f"photo: {photo}")
-
-
-
-
-
-
-
-
 @app.route('/')
 def home():
     return render_template('login.html')
@@ -169,21 +54,17 @@ def login():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-        # Retrieve form data
         username = request.form['username'] or ' '
         password = request.form['password'] or ' '
         if username==' ' or password==' ':
             return 'Empty username or password.'
         existing_user = User.query.filter_by(username=username).first()
-        # Perform validation (you can customize this based on your requirements)
         if existing_user:
             return ('Username already exists')
-            return redirect(url_for('signup'))
         elif username == '' or password == '':
             return ("Fill in all blanks!")
-            return redirect(url_for('signup'))
 
-        # Check if the username already exists in the database
+
 
         else:
             new_user = User(username=username, password=generate_password_hash(password, method='sha256'))

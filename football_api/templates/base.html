@@ -14,7 +14,6 @@
 
     {%block headercss%}
     <style>
-        /* Styles for the header */
         header {
             background-color: #333;
             color: #fff;
@@ -40,8 +39,12 @@
 <body>
     {%block header%}<header>
         <div class="logo">footballAPI</div>
-        
-        {%block reference%}<a class="logout" href="#">Logout</a>{%endblock%}
+
+        {%block reference%}
+        {% if current_user.is_authenticated %}
+        <a class="logout" href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+        {%endblock%}
     </header>{%endblock%}
     {%block content%}{%endblock%}
 

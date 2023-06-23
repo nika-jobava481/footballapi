@@ -7,7 +7,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles/getleague.css">
+    <!-- <link rel="stylesheet" href="../styles/getleague.css"> -->
 </head>
 
 <body>
@@ -43,12 +43,19 @@
 
                 <label for="selectOption" class="form-label">Select Season:</label>
                 <select class="form-select" name="season">
-                    <option value="2017">2017-18</option>
-                    <option value="2018">2018-19</option>
-                    <option value="2019">2019-20</option>
-                    <option value="2020">2020-21</option>
-                    <option value="2021">2021-22</option>
                     <option selected value="2022">2022-23</option>
+                    <option value="2021">2021-22</option>
+                    <option value="2020">2020-21</option>
+                    <option value="2019">2019-20</option>
+                    <option value="2018">2018-19</option>
+                    <option value="2017">2017-18</option>
+                    <option value="2016">2016-17</option>
+                    <option value="2015">2015-16</option>
+                    <option value="2014">2014-15</option>
+                    <option value="2013">2013-14</option>
+                    <option value="2012">2012-13</option>
+                    <option value="2011">2011-12</option>
+                    <option value="2010">2010-11</option>                    
                 </select>
             </div>
             <a href="{{ url_for('league') }}">

@@ -7,7 +7,6 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="../styles/team.css"> -->
 </head>
 
 <body>
@@ -17,23 +16,22 @@
     {% endif %}
 
 
+    <ul>
+        {%for player in squad%}
+        <li>
+            <p>{{player['number']}}. {{player['position']}} {{player['name']}} | {{player['age']}}</p>
+            <img src="{{player['photo']}}" alt="">
+        </li>
 
-    <a class="btn btn-link mt-3" onclick="ref()">squad</a>
+        {%endfor%}
+    </ul>
 
-    
-    <div class="team">
-        <div class="logo"><img src="{{teamresponse['team']['logo']}}" alt=""></div>
-        <p class="name">{{teamresponse['team']['name']}}</p>
-        <span>founded: {{teamresponse['team']['founded']}}</span>
-        <span>country: {{teamresponse['team']['country']}}</span>
-
+    <div class="coach">
+        <p>{{coach['name']}}</p>
+        <p>age: {{coach['age']}}</p>
+        <img src="{{coach['photo']}}" alt="">
     </div>
 
-    <div class="venue">
-        <h2>{{teamresponse["venue"]["name"]}}</h2>
-        <p class="address">{{teamresponse["venue"]["city"]}}: {{teamresponse["venue"]["address"]}}</p>
-        <img src='{{teamresponse["venue"]["image"]}}' alt="">
-    </div>
 
 
 
@@ -41,12 +39,6 @@
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
     <script type="module" src="https://widgets.api-sports.io/2.0.3/widgets.js">
-    </script>
-
-    <script>
-        function ref(){
-            window.location.href="/squad?teamID={{teamresponse['team']['id']}}"
-        }
     </script>
 </body>
 

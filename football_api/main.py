@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, LoginManager, login_user, logout_user, current_user, login_required
 from teaminfo import getTeamInfo
+from squad import getSquad
+from coach import getCoach, getCoachByTeam
 
 
 app = Flask(__name__)
@@ -222,6 +224,13 @@ def logout():
     logout_user()
     session.pop('username', None)
     return redirect(url_for('login'))
+
+@app.route('/squad')
+def squad():
+    teamID=request.args.get("teamID")
+    squad=getSquad(teamID)
+    coach=getCoachByTeam(teamID)    
+    return render_template("squad.html",squad=squad,coach=coach)
 
 
 

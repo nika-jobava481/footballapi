@@ -24,6 +24,6 @@ def getCoach(id):
 
     response = requests.get(url, headers=headers, params=querystring).json()['response'][0]
 
-    print(response)
+    return response
 
 getCoach(276)

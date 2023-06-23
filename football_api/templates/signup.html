@@ -4,26 +4,68 @@
 {%block title%}sign up{%endblock%}
 {%block css%}
 <style>
-    .main {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100dvh;
-    }
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #222;
+    color: #fff;
+}
 
-    .main>div.container {
-        width: 500px;
-    }
+/* Main container */
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
 
-    .main>div.container>form input {
-        margin: 10px 0;
-    }
+/* Form container */
+.container {
+    width: 400px;
+    padding: 30px;
+    background-color: #333;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
 
-    .main>div.container>form>.df {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-    }
+/* Form styling */
+.signup .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #555;
+    color: #fff;
+}
+
+.signup .df {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup .btn {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #888;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.signup .btn:hover {
+    background-color: #777;
+}
+
+.signup .btn-link {
+    color: #fff;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
 </style>
 {%endblock%}
 
@@ -32,7 +74,7 @@
 
 
 {%block content%}
-<div class="main">
+<!-- <div class="main">
     <div class="container">
         <form action="signup" method="post" class="signup">
             <input type="text" name="username" id="username" class="form-control" placeholder="Username">
@@ -44,5 +86,19 @@
         </form>
 
     </div>
+</div> -->
+
+<div class="main">
+    <div class="container">
+        <form action="signup" method="post" class="signup">
+            <input type="text" name="username" id="username" class="form-control" placeholder="Username">
+            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+            <div class="df">
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <a href="{{url_for('login')}}" class="btn btn-link mt-3">Log in</a>
+            </div>
+        </form>
+    </div>
 </div>
+
 {%endblock%}

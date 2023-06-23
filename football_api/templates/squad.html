@@ -1,45 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-</head>
-
-<body>
-
-    {% if current_user.is_authenticated %}
-    <a class="btn btn-link mt-3" href="{{ url_for('logout') }}">Logout</a>
-    {% endif %}
+{% extends 'base.html' %}
 
 
-    <ul>
-        {%for player in squad%}
-        <li>
-            <p>{{player['number']}}. {{player['position']}} {{player['name']}} | {{player['age']}}</p>
-            <img src="{{player['photo']}}" alt="">
-        </li>
+{%block title%}squad{%endblock%}
+{%block css%}
+<style>
+    body {
+        background-color: #1a1a1a;
+        color: #fff;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    
+    th,
+    td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #555;
+    }
+    
+    th {
+        background-color: #333;
+        font-weight: bold;
+    }
+    
+    tbody tr:nth-child(even) {
+        background-color: #222;
+    }
+    
+    .coach {
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    .coach p {
+        margin: 5px 0;
+        font-weight: bold;
+    }
+    
+    .coach img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    
+    /* Anchor link styles */
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+    
+    
+</style>
+{%endblock%}
 
-        {%endfor%}
-    </ul>
-
-    <div class="coach">
-        <p>{{coach['name']}}</p>
-        <p>age: {{coach['age']}}</p>
-        <img src="{{coach['photo']}}" alt="">
-    </div>
 
 
+{%block content%}
+<table>
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>Position</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Photo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for player in squad %}
+        <tr>
+            <td>{{ player['number'] }}</td>
+            <td>{{ player['position'] }}</td>
+            <td>{{ player['name'] }}</td>
+            <td>{{ player['age'] }}</td>
+            <td><img src="{{ player['photo'] }}" alt=""></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
+<div class="coach">
+    <p>{{ coach['name'] }}</p>
+    <p>Age: {{ coach['age'] }}</p>
+    <img src="{{ coach['photo'] }}" alt="">
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-    <script type="module" src="https://widgets.api-sports.io/2.0.3/widgets.js">
-    </script>
-</body>
-
-</html>
+{%endblock%}

@@ -3,35 +3,73 @@
 {%block title%}choose league{%endblock%}
 
 {%block css%}
+
 <style>
-    div.heading {
-        position: relative;
-        height: 300px;
-        width: 100vw;
-    }
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #222;
+    color: #fff;
+}
 
-    div.heading>div.bg {
-        height: 100%;
-        width: 100%;
-        background: url("https://www.sky.co.nz/documents/117005/0/Football-Logo-Wall.jpg/96841bc0-15fd-6b0b-f4fd-de3086293578?t=1670361825177&download=true");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        filter: invert(1) blur(5px);
-        z-index: 1;
-    }
+/* Heading */
+.heading {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+}
 
-    div.heading>h2 {
-        z-index: 10;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 48px;
-        color: white;
-        background-color: rgba(7, 7, 7, 0.5);
-        padding: 20px 40px;
-    }
+.heading h2 {
+    margin: 0;
+}
+
+/* Container */
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #444;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Form styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #888;
+    border-radius: 4px;
+    background-color: #555;
+    color: #fff;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4caf50;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+
 </style>
 {%endblock%}
 
@@ -47,39 +85,42 @@
 {% endif %}
 {% endwith %}
 
+
+
 <div class="heading">
     <div class="bg"></div>
-    <h2>choose your league</h2>
+    <h2>Choose your league</h2>
 </div>
-
-
 
 <div class="container">
     <form method="get" action="league">
-        <div class="mb-3">
+        <div class="form-group">
             <label for="selectOption" class="form-label">Select League:</label>
             <select class="form-select" id="selectOption" name="leagueid">
-                <option selected value="140">la liga</option>
+                <option selected value="140">La Liga</option>
                 <option value="135">Serie A</option>
-                <option value="78">bundesliga</option>
+                <option value="78">Bundesliga</option>
                 <option value="61">Ligue 1</option>
-                <option value="39">premier league</option>
+                <option value="39">Premier League</option>
             </select>
-
+        </div>
+        
+        <div class="form-group">
             <label for="selectOption" class="form-label">Select Season:</label>
             <select class="form-select" name="season">
-                {%for y in range(10,22)%}
-                <option value="20{{y}}">20{{y}}-{{y+1}}</option>
-                {%endfor%}
+                {% for y in range(10, 22) %}
+                <option value="20{{ y }}">20{{ y }}-{{ y+1 }}</option>
+                {% endfor %}
                 <option selected value="2022">2022-23</option>
             </select>
         </div>
-        <a href="{{ url_for('league') }}">
-            <button type="submit" class="btn btn-success">SEARCH</button>
-        </a>
+        
+        <button type="submit" class="btn btn-success">SEARCH</button>
     </form>
 </div>
 
 
 
+
 {%endblock%}
+

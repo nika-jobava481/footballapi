@@ -1,53 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="../styles/team.css"> -->
-</head>
-
-<body>
-
-    {% if current_user.is_authenticated %}
-    <a class="btn btn-link mt-3" href="{{ url_for('logout') }}">Logout</a>
-    {% endif %}
+{% extends 'base.html' %}
 
 
+{%block title%}{{teamresponse['team']['name']}}{%endblock%}
+{%block css%}
+<style>
+    .team {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        padding: 30px 10%;
+        background: #181719;
+        margin: 0 0 20px 0;
+    }
+    
+    .team .logo {
+        width: 70px;
+        height: 70px;
+        overflow: hidden;
+    }
+    
+    .team .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .team-info {
+        width: 80%;
+        max-width: 90%;
+    }
+    
+    .team-info .name {
+        font-size: 24px;
+        color: #fff;
+        margin: 0;
+    }
+    
+    .team-info .team-details {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .team-info .info {
+        font-size: 14px;
+        color: #d6d6d6;
+    }
+    
+    .team-info .btn {
+        color: #fff;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    
+    .team-info .btn:hover {
+        text-decoration: none;
+    }
+    
+    
 
+
+
+    .venue {
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    .venue h2 {
+        margin: 0;
+        font-size: 24px;
+        color: #fff;
+    }
+    
+    .venue .address {
+        margin: 10px 0;
+        color: #aaa;
+    }
+    
+    .venue img {
+        width: 200px;
+        height: 200px;
+        border-radius: 12px;
+        object-fit: cover;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Dark theme background */
+    body {
+        background-color: #1a1a1a;
+        color: #fff;
+    }
+    
+    
+</style>
+{%endblock%}
+
+
+
+{%block content%}
+
+<div class="team">
+    <div class="logo">
+        <img src="{{teamresponse['team']['logo']}}" alt="">
+    </div>
+    <div class="team-info">
+        <p class="name">{{teamresponse['team']['name']}}</p>
+        <div class="team-details">
+            <span class="info">Founded: {{teamresponse['team']['founded']}}</span>
+            <span class="info">Country: {{teamresponse['team']['country']}}</span>
+        </div>
+        <a class="btn btn-link mt-3" onclick="ref()">Squad</a>
+    </div>
+    
+</div>
+
+
+<!-- <div class="team">
+    <div class="logo"><img src="{{teamresponse['team']['logo']}}" alt=""></div>
+    <p class="name">{{teamresponse['team']['name']}}</p>
+    <span>founded: {{teamresponse['team']['founded']}}</span>
+    <span>country: {{teamresponse['team']['country']}}</span>
     <a class="btn btn-link mt-3" onclick="ref()">squad</a>
 
-    
-    <div class="team">
-        <div class="logo"><img src="{{teamresponse['team']['logo']}}" alt=""></div>
-        <p class="name">{{teamresponse['team']['name']}}</p>
-        <span>founded: {{teamresponse['team']['founded']}}</span>
-        <span>country: {{teamresponse['team']['country']}}</span>
+</div> -->
 
-    </div>
+<div class="venue">
+    <h2>{{teamresponse["venue"]["name"]}}</h2>
+    <p class="address">{{teamresponse["venue"]["city"]}}: {{teamresponse["venue"]["address"]}}</p>
+    <img src='{{teamresponse["venue"]["image"]}}' alt="">
+</div>
+{%endblock%}
 
-    <div class="venue">
-        <h2>{{teamresponse["venue"]["name"]}}</h2>
-        <p class="address">{{teamresponse["venue"]["city"]}}: {{teamresponse["venue"]["address"]}}</p>
-        <img src='{{teamresponse["venue"]["image"]}}' alt="">
-    </div>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-    <script type="module" src="https://widgets.api-sports.io/2.0.3/widgets.js">
-    </script>
-
-    <script>
-        function ref(){
-            window.location.href="/squad?teamID={{teamresponse['team']['id']}}"
-        }
-    </script>
-</body>
-
-</html>
+{%block script%}
+<script>
+    function ref() {
+        window.location.href = "/squad?teamID={{teamresponse['team']['id']}}"
+    }
+</script>
+{%endblock%}

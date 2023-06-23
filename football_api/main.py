@@ -10,7 +10,7 @@ from coach import getCoach, getCoachByTeam
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'key'
+app.config['SECRET_KEY'] = 'your_secret_key_here'
 
 
 db = SQLAlchemy(app)
@@ -54,26 +54,26 @@ def login():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-        username = request.form['username'] or ' '
-        password = request.form['password'] or ' '
-        if username==' ' or password==' ':
+
+        username = request.form.get('username', '').strip()
+        password = request.form.get('password', '').strip()
+
+
+        if username == '' or password == '':
             return 'Empty username or password.'
+        
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
-            return ('Username already exists')
-        elif username == '' or password == '':
-            return ("Fill in all blanks!")
+            return 'Username already exists'
 
+        new_user = User(username=username, password=generate_password_hash(password, method='sha256'))
+        db.session.add(new_user)
+        db.session.commit()
 
-
-        else:
-            new_user = User(username=username, password=generate_password_hash(password, method='sha256'))
-
-            db.session.add(new_user)
-            db.session.commit()
-        
         return redirect(url_for('login'))
     else:
+        session.clear()
+
         return render_template('signup.html')
 
     
@@ -82,7 +82,7 @@ def signup():
 @app.route('/getleague',methods=["GET"])
 @login_required
 def getleague():
-    flash(f"Hello {session['username']} This is a flash message.")
+    flash(f"Hello {current_user.username}! This is a flash message.")
     return render_template('getleague.html')
 
 
@@ -112,8 +112,6 @@ def squad():
     squad=getSquad(teamID)
     coach=getCoachByTeam(teamID)    
     return render_template("squad.html",squad=squad,coach=coach)
-
-
 
 
 @login_manager.user_loader
